@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.boomers.mapper.CommodityMapper" >
+	<select id="selectIndex" resultType="cn.boomers.po.TbCommodity">
+	    SELECT * FROM tb_commodity WHERE CTypeId=1 LIMIT 0,10
+	</select>
+	
+	<select id="selectByIdCommodity" parameterType="cn.boomers.po.TbCommodity" resultType="cn.boomers.po.TbCommodity">
+	    SELECT * FROM tb_commodity WHERE ComId = #{comid}
+	</select>
+	
+	<select id="selectMuying" resultType="cn.boomers.po.TbCommodity">
+	    SELECT * FROM tb_commodity WHERE CTypeId=3 LIMIT 0,4
+	</select>
+	
+	<select id="selectGuoji" resultType="cn.boomers.po.TbCommodity">
+	    SELECT * FROM tb_commodity WHERE CTypeId=5 LIMIT 0,4
+	</select>
+	
+	<select id="selectYundong" resultType="cn.boomers.po.TbCommodity">
+	    SELECT * FROM tb_commodity WHERE CTypeId=6 LIMIT 0,6
+	</select>
+	
+	<select id="selectXiebao" resultType="cn.boomers.po.TbCommodity">
+	    SELECT * FROM tb_commodity WHERE CTypeId=7 LIMIT 0,6
+	</select>
+	
+	<select id="selectBikan" resultType="cn.boomers.po.TbCommodity">
+	    SELECT * FROM tb_commodity WHERE CTypeId=8 LIMIT 0,9
+	</select>
+	
+	<select id="selectShangxin" resultType="cn.boomers.po.TbCommodity">
+	    SELECT * FROM tb_commodity WHERE CTypeId=9 LIMIT 0,6
+	</select>
+	
+	<select id="selectMeizhuang" resultType="cn.boomers.po.TbCommodity">
+	    SELECT * FROM tb_commodity WHERE CTypeId=10 LIMIT 0,10
+	</select>
+
+</mapper>

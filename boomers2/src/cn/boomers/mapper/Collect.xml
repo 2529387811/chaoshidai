@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.boomers.mapper.Collect" >
+	<insert id="insertCollect" parameterType="integer">
+		insert into tb_collect(ComId) values(#{ComId})
+	</insert>
+	<select id="SelectIdCollect" resultType="integer" parameterType="integer">
+		select count(*) from tb_collect where ComId=#{ComId}
+	</select>
+	<select id="selectCollect" resultType="map"  parameterType="integer">
+		select * from tb_collect as co,tb_commodity as com where co.ComId = com.ComId limit #{pageindex},6
+	</select>
+	<select id="CountCollect" resultType="integer">
+		select count(*) from tb_collect as co,tb_commodity as com where co.ComId = com.ComId
+	</select>
+	<select id="selectCount" resultType="map">
+		select * from tb_collect as co,tb_commodity as com where co.ComId = com.ComId
+	</select>
+	<select id="selectTypeid" resultType="map" parameterType="integer">
+		select * from tb_commodity where CTypeId=#{CTypeId} limit #{pageindex},8
+	</select>
+	<select id="selectOrderByd" resultType="map"  parameterType="integer">
+		select * from tb_commodity where CTypeId=#{CTypeId} order by CPrice desc
+	</select>	
+	<select id="selectOrderByi" resultType="map"  parameterType="integer">
+		select * from tb_commodity where CTypeId=#{CTypeId} order by CPrice asc
+	</select>
+	<select id="CountOrderBy" resultType="map"  parameterType="integer">
+		select * from tb_commodity where CTypeId=#{CTypeId} order by CCount asc
+	</select>
+	<select id="CountAll" resultType="integer"  parameterType="integer">
+		select count(*) as count from tb_commodity where CTypeId=#{CTypeId}
+	</select>
+	<select id="LunBo" resultType="map" parameterType="integer">
+		select * from tb_commodity where CTypeId=#{CTypeId}
+	</select>
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.boomers.mapper.CarMapper" >
+	<select id="selectCar" parameterType="cn.boomers.po.TbCarCustom" resultType="cn.boomers.po.TbCommodityCustom">
+	    SELECT tb_commodity.*,tb_car.* FROM tb_commodity,tb_car WHERE tb_commodity.ComId = tb_car.ComId AND Userid=#{userid}
+		<if test="ids!=null">
+		<foreach collection="ids" item="user_id" open="AND (" close=")" separator="or">
+			CarId=#{user_id}
+		</foreach>
+		</if>
+	</select>
+	
+	<insert id="insertCar" parameterType="cn.boomers.po.TbCar">
+	    INSERT INTO Tb_Car(UserId,ComId,OrderTime,OrderCount,CPrice,OrderPrice) VALUES(#{userid},#{comid},#{ordertime},#{ordercount},#{cprice},#{orderprice});
+	</insert>
+	
+	<delete id="deleteCar" parameterType="cn.boomers.po.TbCar">
+	    DELETE FROM tb_car WHERE CarId=#{carid}
+	</delete>
+	
+	<delete id="deleteCars" parameterType="cn.boomers.po.TbCarCustom">
+	    DELETE FROM tb_car WHERE CarId=
+	    <if test="ids!=null">
+			<foreach collection="ids" item="carids" open="("  separator="," close=")">
+				#{carids}
+			</foreach>
+		</if>
+	</delete>
+	
+	<update id="jiaCount" parameterType="cn.boomers.po.TbCarCustom">
+	    UPDATE tb_car SET OrderCount=#{ordercount} WHERE CarId=#{carid}
+	</update>
+	
+	<insert id="insertOrder" parameterType="cn.boomers.po.TbOrderFormCustom">
+	    INSERT INTO tb_order_form(UserId,ComId,RAddress,SpDate,SendDate,OrderStatus,OrderCount,OrderPhone,OrderCons) VALUES
+		    <if test="comids!=null">
+		       <foreach collection="comids" item="comid_id" index="index" separator=",">
+		    	(#{userid},#{comid_id},#{raddress},#{spdate},#{senddate},#{orderstatus},#{ordercount},#{orderphone},#{ordercons})
+				</foreach>	    
+		   	</if>
+	</insert>
+	
+</mapper>

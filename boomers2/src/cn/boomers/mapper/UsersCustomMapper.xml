@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.boomers.mapper.UsersCustomMapper" >
+    <sql id="query_user_where">
+        <if test="username!=null and username!=''">
+            UserName=#{username},
+        </if>
+        <if test="userpassword!=null and userpassword!=''">
+            UserPassword=#{userpassword},
+        </if>
+        <if test="sex!=null and sex!=''">
+            Sex=#{sex},
+        </if>
+        <if test="email!=null and email!=''">
+            Email=#{email},
+        </if>
+        <if test="phone!=null and phone!=''">
+            Phone=#{phone},
+        </if>
+        <if test="userpic!=null and userpic!=''">
+            UserPic=#{userpic},
+        </if>
+        <if test="birthday!=null and birthday!=''">
+            Birthday=#{birthday},
+        </if>
+        <if test="content!=null">
+            Content=#{content}
+        </if>
+    </sql>
+    
+ 	<select id="isUsername" parameterType="cn.boomers.po.TbUser" resultType="cn.boomers.po.TbUser">
+		SELECT * FROM tb_user WHERE UserName = #{username} AND UserPassword = #{userpassword}
+	</select>
+	<select id="isEmail" parameterType="cn.boomers.po.TbUser" resultType="cn.boomers.po.TbUser">
+		SELECT * FROM tb_user WHERE Email = #{username} AND UserPassword = #{userpassword}
+	</select>
+	<select id="isPhone" parameterType="cn.boomers.po.TbUser" resultType="cn.boomers.po.TbUser">
+		SELECT * FROM tb_user WHERE Phone = #{username} AND UserPassword = #{userpassword}
+	</select>
+	
+	<select id="isPhone2" parameterType="cn.boomers.po.TbUser" resultType="cn.boomers.po.TbUser">
+		SELECT * FROM tb_user WHERE Phone = #{phone}
+	</select>
+	
+ 	<insert id="insert" parameterType="cn.boomers.po.TbUser">
+	    insert into tb_user(UserName, UserPassword,Sex,Email,Phone,RegTime,UserPic)
+	      values (#{username}, #{userpassword},#{sex},#{email},#{phone},#{regtime},#{userpic}
+	      )
+	</insert>
+	
+	<select id="selectById" parameterType="cn.boomers.po.TbUser" resultType="cn.boomers.po.TbUser">
+		SELECT * FROM tb_user WHERE UserId=#{userId}
+	</select>
+	
+	<select id="userList" resultType="cn.boomers.po.TbUser">
+	    select * FROM tb_user
+	</select>
+	
+	<select id="selectPhone" parameterType="cn.boomers.po.TbUser" resultType="cn.boomers.po.TbUser">
+	    SELECT * FROM tb_user WHERE Phone = #{phone}
+	</select>
+	
+	<update id="updateUser" parameterType="cn.boomers.po.TbUser">
+		UPDATE tb_user SET 
+		<include refid="query_user_where" /> 
+		WHERE UserId=#{userid}
+	</update>
+	
+	<update id="updatePassword" parameterType="cn.boomers.po.TbUser">
+		UPDATE tb_user SET UserPassword = #{userpassword} WHERE UserId=#{userid}
+	</update>
+	
+	<update id="updatePhone" parameterType="cn.boomers.po.TbUser">
+		UPDATE tb_user SET Phone = #{phone} WHERE UserId=#{userid}
+	</update>
+	
+	
+	
+	<select id="selectReal" parameterType="cn.boomers.po.TbRealName" resultType="cn.boomers.po.TbRealName">
+		SELECT * FROM tb_realname WHERE UserId=#{userid}
+	</select>
+	
+	<delete id="deleteReal" parameterType="cn.boomers.po.TbRealName">
+	    DELETE FROM tb_realname WHERE RealId = #{realid}
+	</delete>
+	
+	<insert id="insertReal" parameterType="cn.boomers.po.TbRealName">
+	    INSERT INTO tb_realname(UserId,NAME,IDCardNo,VerificationStatus) VALUES(#{userid},#{name},#{idcardno},#{verificationstatus})
+	</insert>
+	
+	
+	
+	
+	<select id="selectSite" parameterType="cn.boomers.po.TbSite" resultType="cn.boomers.po.TbSite">
+	    SELECT * FROM tb_site WHERE UserId=#{userid}
+	</select>
+	
+	<select id="selectSiteById" parameterType="cn.boomers.po.TbSite" resultType="cn.boomers.po.TbSite">
+		SELECT * FROM tb_site where AddressId=#{addressid} and UserId = #{userid}
+	</select>
+	
+	<insert id="insertSite" parameterType="cn.boomers.po.TbSite">
+	    INSERT tb_site(UserId,Consignee,Address,ConPhone,DetailedAds) VALUES(#{userid},#{consignee},#{address},#{conphone},#{detailedads})
+	</insert>
+	
+	<delete id="deleteSite" parameterType="cn.boomers.po.TbSite">
+	    DELETE FROM tb_site WHERE AddressId = #{addressid}
+	</delete>
+	
+	<update id="updateSite" parameterType="cn.boomers.po.TbSite">
+	    UPDATE tb_site SET Consignee = #{consignee},Address = #{address},ConPhone = #{conphone},DetailedAds=#{detailedads} WHERE AddressId = #{addressid}
+	</update>
+</mapper>

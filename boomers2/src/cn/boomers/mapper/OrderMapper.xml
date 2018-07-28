@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.boomers.mapper.OrderMapper" >
+	<select id="selectOrder" parameterType="cn.boomers.po.TbOrderForm" resultType="cn.boomers.po.TbOrderFormCustom">
+	    SELECT tb_order_form.*,tb_commodity.* FROM tb_order_form,tb_commodity WHERE tb_order_form.UserId=#{userid} AND tb_order_form.ComId=tb_commodity.ComId
+	</select>
+	
+	<select id="selectOrderById" parameterType="cn.boomers.po.TbOrderForm" resultType="cn.boomers.po.TbOrderFormCustom">
+	    SELECT tb_order_form.*,tb_commodity.* FROM tb_order_form,tb_commodity WHERE tb_order_form.UserId=#{userid} AND tb_order_form.ComId=tb_commodity.ComId AND tb_order_form.OFId=#{ofid}
+	</select>
+	
+	<update id="updateStatus" parameterType="cn.boomers.po.TbOrderForm">
+		UPDATE tb_order_form SET OrderStatus=#{orderstatus} WHERE OFId=#{ofid}
+	</update>
+</mapper>
