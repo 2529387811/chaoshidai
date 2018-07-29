@@ -36,7 +36,7 @@
 	只要实现HandlerExceptionResolver接口就是全局异常处理器 -->
 	<!-- <bean class="cn.boomers.exception.CustomExceptionResolver"></bean> -->
 	
-	<!-- <mvc:interceptors>
+	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/**/*.css"/>
@@ -47,5 +47,5 @@
 			    
 			</bean>
 		</mvc:interceptor>
-	</mvc:interceptors> -->
+	</mvc:interceptors>
 </beans>
